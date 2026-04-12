@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node engine/cli.js",
     "test": "jest --testPathPattern=tests/",
-    "build:wisowl": "node engine/cli.js build --config examples/wisowl/pseo.config.json",
+    "build:saas": "node engine/cli.js build --config examples/saas-example/pseo.config.json",
     "build:blog": "node engine/cli.js build --config examples/blog-example/pseo.config.json",
     "build:ecom": "node engine/cli.js build --config examples/ecom-example/pseo.config.json"
   },

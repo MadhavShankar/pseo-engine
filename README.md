@@ -9,7 +9,7 @@ Open source. Framework-agnostic. Vibe-code friendly. Your design stays 100% inta
 ## Start Here
 
 ```bash
-git clone https://github.com/madhav-shankar/pseo-engine
+git clone https://github.com/MadhavShankar/pseo-engine
 cd pseo-engine && npm install
 node engine/cli.js start
 ```

@@ -57,15 +57,15 @@ pseo-engine/
 ├── /engine/adapters
 │   ├── html.js                        ← already scaffolded
 │   ├── nextjs.js                      ← already scaffolded
-│   ├── astro.js                       ← TODO: build
-│   └── nuxt.js                        ← TODO: build
+│   ├── astro.js                       ← already written
+│   └── nuxt.js                        ← already written
 │
 ├── /engine/content-providers
 │   ├── provider.interface.js          ← already written
-│   ├── template-only.js               ← already scaffolded
-│   ├── claude.js                      ← already scaffolded
-│   ├── openai.js                      ← TODO: build (mirror claude.js)
-│   └── local-llm.js                   ← TODO: build (Ollama)
+│   ├── template-only.js               ← already written
+│   ├── claude.js                      ← already written
+│   ├── openai.js                      ← already written
+│   └── local-llm.js                   ← already written
 │
 ├── /templates
 │   └── base.html                      ← already written
