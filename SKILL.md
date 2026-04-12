@@ -100,7 +100,47 @@ Output lands in `/output`. The user deploys it and submits
 
 ---
 
-## The Only Things That Change in the User's Template
+## HARD RULE — Template Styling Must Come From The User's Site
+
+**This is the most important rule in this file. It applies before any other step.**
+
+When the user provides a URL or file, the generated pages must look identical
+to the original site — same fonts, same colors, same layout, same nav, same
+footer. The ONLY differences are the copy inside the `{{slot}}` areas.
+
+### What this means in practice
+
+If the input is a **URL**:
+1. Fetch the page with WebFetch before creating any template file
+2. Extract verbatim: every `<style>` block, every `<link rel="stylesheet">`,
+   every `<link rel="preconnect">`, the full `<nav>` / sidebar HTML,
+   the full `<footer>` HTML, and any inline `style=` attributes
+3. Paste all of it into the template exactly as-is — no rewrites, no cleanup
+4. Only then add `{{slot}}` placeholders in the content areas
+
+If the input is a **local file**:
+1. Read the file before creating any template
+2. Use it as the direct base — copy the entire file, then add slots
+3. Never replace the file's existing CSS with your own
+
+### What is never allowed
+
+- Writing custom CSS for a template — even one line
+- Recreating nav or footer HTML from memory or from a text description
+- Using a "similar" color scheme — only the exact values from the source
+- Skipping the WebFetch step because you "already know" the site's design
+- Using a generic base template and adjusting colors to match
+
+### The test
+
+Before saving the template file, ask: "If I opened the original site and this
+generated page side by side, would a user notice any visual difference outside
+the content slots?" If the answer is yes, the template is wrong. Fetch the
+real CSS and redo it.
+
+---
+
+## What the Engine Changes (and Nothing Else)
 
 The engine ONLY fills `{{slot}}` placeholders in the template's `<body>`.
 It never touches:
@@ -189,6 +229,8 @@ Values: react developer, python engineer, data scientist, devops engineer
 
 ## What Not to Do
 
+- **Do not write custom CSS for a template** — fetch the real CSS from the source page
+- **Do not recreate nav or footer from scratch** — copy the exact HTML from the source page
 - Do not modify the user's original page file directly
 - Do not ask for a `pseo.config.json` — `start` creates it
 - Do not run `init` or `keywords` separately — `start` replaces both

@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
-import { resolve } from 'path';
+import { resolve, join, isAbsolute } from 'path';
 import { KeywordLibraryParser } from './keywords.js';
 
 /**
@@ -19,11 +19,13 @@ export class DataIngestor {
    */
   async load() {
     const { type = 'keywords-md', path, apiEndpoint, columnMap } = this.config.dataSource || {};
+    const configDir = this.config._configDir || process.cwd();
+    const resolvePath = p => (p && !isAbsolute(p)) ? join(configDir, p) : (p || '');
 
     let raw;
     switch (type) {
       case 'keywords-md':
-        return this._loadKeywordsMd(path || './data/keywords.md');
+        return this._loadKeywordsMd(resolvePath(path || './data/keywords.md'));
       case 'csv':
         raw = await this._loadCsv(path, columnMap);
         break;
