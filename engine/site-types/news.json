@@ -1,0 +1,45 @@
+{
+  "id": "news",
+  "displayName": "News / Media",
+  "description": "News and media sites targeting breaking news and topical search queries",
+  "defaultSchemaTypes": ["NewsArticle"],
+  "crawlStrategy": {
+    "type": "date-priority",
+    "hubPriority": 0.8,
+    "spokePriority": 0.7,
+    "deepPriority": 0.5,
+    "recencySignal": true
+  },
+  "internalLinkingPattern": "tag-article",
+  "sitemapDefaults": {
+    "changefreq": "daily",
+    "segmentByCluster": true,
+    "maxUrlsPerSitemap": 10000
+  },
+  "contentStrategy": {
+    "minWordCount": 300,
+    "maxWordCount": 1000,
+    "faqCount": 0,
+    "intentTypes": ["informational"]
+  },
+  "suggestedSlots": [
+    "meta_title", "meta_description", "h1", "hero_subtext",
+    "body_content", "breadcrumbs", "internal_links",
+    "headline", "author", "publish_date", "category",
+    "summary", "image_caption", "tags", "related_articles"
+  ],
+  "noindexThreshold": {
+    "minWordCount": 200,
+    "duplicationRatio": 0.4
+  },
+  "keywordModifiers": {
+    "prefix": ["latest", "breaking", "top"],
+    "suffix": ["news", "update", "today", "2025"],
+    "intentPatterns": [
+      ":topic news",
+      "latest :topic updates",
+      ":topic today",
+      ":topic 2025"
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "portfolio",
+  "displayName": "Portfolio",
+  "description": "Creative and professional portfolio sites showcasing work by category or client",
+  "defaultSchemaTypes": ["CreativeWork"],
+  "crawlStrategy": {
+    "type": "project-cluster",
+    "hubPriority": 0.9,
+    "spokePriority": 0.7,
+    "deepPriority": 0.5,
+    "recencySignal": false
+  },
+  "internalLinkingPattern": "category-work",
+  "sitemapDefaults": {
+    "changefreq": "monthly",
+    "segmentByCluster": true,
+    "maxUrlsPerSitemap": 5000
+  },
+  "contentStrategy": {
+    "minWordCount": 150,
+    "maxWordCount": 400,
+    "faqCount": 3,
+    "intentTypes": ["navigational", "commercial"]
+  },
+  "suggestedSlots": [
+    "meta_title", "meta_description", "h1", "hero_subtext",
+    "body_content", "breadcrumbs", "internal_links",
+    "project_name", "client", "year", "category",
+    "tools_used", "outcome_summary", "cta_text"
+  ],
+  "noindexThreshold": {
+    "minWordCount": 100,
+    "duplicationRatio": 0.6
+  },
+  "keywordModifiers": {
+    "prefix": ["best", "top", "hire", "freelance"],
+    "suffix": ["designer", "developer", "agency", "studio", "portfolio"],
+    "intentPatterns": [
+      ":skill designer portfolio",
+      "hire :skill freelancer",
+      "best :category agency",
+      ":skill work examples"
+    ]
+  }
+}

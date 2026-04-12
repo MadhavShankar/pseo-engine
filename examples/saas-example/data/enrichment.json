@@ -1,0 +1,103 @@
+{
+  "_readme": "Enrichment data keyed by modifier value (city or role name, lowercase). The engine merges this with per-row notes data. Notes column takes priority over this file.",
+
+  "bangalore": {
+    "avg_salary": "18-45LPA",
+    "talent_pool": "92,000+",
+    "top_cos": "Infosys, Wipro, Flipkart, Swiggy, Meesho",
+    "demand": "very high",
+    "market_notes": "Bangalore has the largest tech talent pool in India. Competition for senior engineers is intense, with average 45 days to fill specialised roles."
+  },
+  "mumbai": {
+    "avg_salary": "20-48LPA",
+    "talent_pool": "61,000+",
+    "top_cos": "TCS, Reliance, HDFC, Razorpay, Zepto",
+    "demand": "high",
+    "market_notes": "Mumbai tech hiring is concentrated in fintech, e-commerce, and enterprise services. Candidates typically expect hybrid or remote flexibility."
+  },
+  "delhi": {
+    "avg_salary": "16-40LPA",
+    "talent_pool": "54,000+",
+    "top_cos": "HCL, Adobe, Paytm, MakeMyTrip, IndiaMart",
+    "demand": "high",
+    "market_notes": "Delhi-NCR has a strong pool of mid-level engineers from tier-1 colleges. Noida and Gurgaon are the primary hiring hubs within the region."
+  },
+  "hyderabad": {
+    "avg_salary": "16-38LPA",
+    "talent_pool": "48,000+",
+    "top_cos": "Microsoft, Google, Amazon, Cyient, WiPro",
+    "demand": "high",
+    "market_notes": "Hyderabad has grown significantly as a tech hub due to HITEC City. Strong pipeline from local engineering colleges and returning diaspora."
+  },
+  "pune": {
+    "avg_salary": "14-35LPA",
+    "talent_pool": "38,000+",
+    "top_cos": "Infosys, Cognizant, Persistent, Bajaj Finserv",
+    "demand": "medium-high",
+    "market_notes": "Pune has a large mid-level engineering workforce. Cost of hiring is typically 15-20% lower than Bangalore for equivalent roles."
+  },
+  "chennai": {
+    "avg_salary": "14-33LPA",
+    "talent_pool": "31,000+",
+    "top_cos": "TCS, Zoho, Freshworks, CGI",
+    "demand": "medium-high",
+    "market_notes": "Chennai is strong in product engineering and infrastructure roles. Freshworks and Zoho have anchored the local product startup ecosystem."
+  },
+  "noida": {
+    "avg_salary": "14-35LPA",
+    "talent_pool": "29,000+",
+    "top_cos": "HCL, Samsung, Adobe, Info Edge",
+    "demand": "medium",
+    "market_notes": "Noida is a cost-effective alternative to central Delhi. Strong supply of backend and QA engineers from nearby engineering institutes."
+  },
+  "gurgaon": {
+    "avg_salary": "18-42LPA",
+    "talent_pool": "26,000+",
+    "top_cos": "BCG, Deloitte, Udaan, OYO",
+    "demand": "high",
+    "market_notes": "Gurgaon attracts senior and leadership-level tech talent, often from MNCs and consulting firms. Higher salary expectations than other NCR locations."
+  },
+
+  "react": {
+    "avg_salary": "14-40LPA",
+    "open_roles": "2,400+",
+    "median_experience": "3-6 years",
+    "demand": "very high",
+    "top_skills": "React, TypeScript, Next.js, GraphQL, Redux"
+  },
+  "python": {
+    "avg_salary": "15-42LPA",
+    "open_roles": "3,100+",
+    "median_experience": "3-7 years",
+    "demand": "very high",
+    "top_skills": "Python, Django, FastAPI, NumPy, AWS"
+  },
+  "nodejs": {
+    "avg_salary": "14-38LPA",
+    "open_roles": "1,800+",
+    "median_experience": "3-6 years",
+    "demand": "high",
+    "top_skills": "Node.js, Express, MongoDB, REST APIs, AWS"
+  },
+  "java": {
+    "avg_salary": "14-38LPA",
+    "open_roles": "4,200+",
+    "median_experience": "4-8 years",
+    "demand": "high",
+    "top_skills": "Java, Spring Boot, Microservices, Kafka, AWS"
+  },
+  "golang": {
+    "avg_salary": "18-45LPA",
+    "open_roles": "680+",
+    "median_experience": "4-7 years",
+    "demand": "high",
+    "top_skills": "Go, gRPC, Docker, Kubernetes, PostgreSQL"
+  },
+  "machine-learning": {
+    "avg_salary": "18-50LPA",
+    "open_roles": "1,100+",
+    "median_experience": "4-8 years",
+    "demand": "very high",
+    "top_skills": "Python, TensorFlow, PyTorch, Scikit-learn, MLOps"
+  }
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- pseo-engine replaces this entire head block -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/styles/blog.css" />
+</head>
+<body class="blog-page">
+
+  <header class="site-header">
+    <nav class="nav-container">
+      <a href="/" class="logo">Example Blog</a>
+      <ul class="nav-links">
+        <li><a href="/guides">Guides</a></li>
+        <li><a href="/comparisons">Comparisons</a></li>
+        <li><a href="/newsletter">Newsletter</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="container">{{{breadcrumbs}}}</div>
+  </div>
+
+  <article class="article-layout" itemscope itemtype="https://schema.org/Article">
+
+    <header class="article-header">
+      <div class="container">
+        <div class="article-meta">
+          <span class="reading-time">{{reading_time}}</span>
+          <span class="article-author">By {{author}}</span>
+          <time class="article-date">{{publish_date}}</time>
+        </div>
+        <h1 class="article-title" itemprop="headline">{{h1}}</h1>
+        <p class="article-intro">{{hero_subtext}}</p>
+        <div class="article-tags">{{{tags}}}</div>
+      </div>
+    </header>
+
+    <div class="article-body container">
+
+      <aside class="table-of-contents">
+        <h2>In this guide</h2>
+        {{{table_of_contents}}}
+      </aside>
+
+      <div class="article-content" itemprop="articleBody">
+        {{{body_content}}}
+      </div>
+
+    </div>
+
+    <section class="faq-section">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        {{{faq_block}}}
+      </div>
+    </section>
+
+    <section class="related-articles">
+      <div class="container">
+        <h2>Related guides</h2>
+        {{{internal_links}}}
+      </div>
+    </section>
+
+    <section class="article-cta">
+      <div class="container">
+        <h2>Want more guides like this?</h2>
+        <p>Subscribe to get new guides every week.</p>
+        <a href="/newsletter" class="btn-primary">{{cta_text}}</a>
+      </div>
+    </section>
+
+  </article>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Example Blog. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

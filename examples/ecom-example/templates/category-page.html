@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- pseo-engine replaces this entire head block -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/styles/store.css" />
+</head>
+<body class="category-page">
+
+  <header class="site-header">
+    <nav class="nav-container">
+      <a href="/" class="logo">Example Store</a>
+      <ul class="nav-links">
+        <li><a href="/shop">Shop</a></li>
+        <li><a href="/deals">Deals</a></li>
+        <li><a href="/cart" class="btn-nav">Cart</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="container">{{{breadcrumbs}}}</div>
+  </div>
+
+  <section class="category-hero">
+    <div class="container">
+      <h1 class="category-title">{{h1}}</h1>
+      <p class="category-sub">{{hero_subtext}}</p>
+      <div class="category-badges">
+        <span class="badge">{{social_proof_stat}}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="category-filters">
+    <div class="container">
+      <div class="filter-bar">
+        <span class="filter-label">Sort by:</span>
+        <button class="filter-btn active">Popular</button>
+        <button class="filter-btn">Price: Low to High</button>
+        <button class="filter-btn">Price: High to Low</button>
+        <button class="filter-btn">Newest</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="category-content">
+    <div class="container">
+      <div class="category-description">
+        {{{body_content}}}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <h2>Buying guide</h2>
+      {{{faq_block}}}
+    </div>
+  </section>
+
+  <section class="related-categories">
+    <div class="container">
+      <h2>Browse related categories</h2>
+      {{{internal_links}}}
+    </div>
+  </section>
+
+  <section class="category-cta">
+    <div class="container">
+      <h2>Free delivery on orders above ₹499</h2>
+      <a href="/shop" class="btn-primary">{{cta_text}}</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Example Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/pseo-engine/pseo.config.schema.json",
+  "title": "pseo-engine Configuration",
+  "description": "Configuration schema for pseo-engine programmatic SEO generator",
+  "type": "object",
+  "required": [
+    "site",
+    "templates",
+    "dataSource"
+  ],
+  "properties": {
+    "site": {
+      "type": "object",
+      "required": [
+        "name",
+        "baseUrl",
+        "siteType",
+        "frameworkAdapter"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Site or product name"
+        },
+        "baseUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Production base URL (no trailing slash)"
+        },
+        "defaultLocale": {
+          "type": "string",
+          "default": "en",
+          "description": "Default locale code"
+        },
+        "frameworkAdapter": {
+          "type": "string",
+          "enum": [
+            "nextjs",
+            "astro",
+            "html",
+            "nuxt"
+          ],
+          "description": "Framework the site is built with"
+        },
+        "siteType": {
+          "type": "string",
+          "enum": [
+            "saas-landing",
+            "blog",
+            "ecom",
+            "local-business",
+            "app-download",
+            "directory",
+            "news",
+            "portfolio"
+          ],
+          "description": "Site type \u2014 determines default schema, crawl strategy, and slot vocabulary"
+        },
+        "brandVoice": {
+          "type": "string",
+          "description": "One sentence describing tone and writing style (used in LLM content prompts)"
+        },
+        "defaultOgImage": {
+          "type": "string",
+          "description": "Path to default Open Graph image (relative to site root)"
+        },
+        "locales": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of locale codes for hreflang generation. Leave empty for single-locale."
+        },
+        "targetPersona": {
+          "type": "string",
+          "description": "Default target persona for all pages (e.g. 'startup founders', 'HR managers'). Can be overridden per-page via notes column."
+        }
+      }
+    },
+    "contentProvider": {
+      "type": "string",
+      "enum": [
+        "template-only",
+        "claude",
+        "openai",
+        "local-llm"
+      ],
+      "default": "template-only",
+      "description": "Content generation provider. template-only requires no API keys."
+    },
+    "contentProviderConfig": {
+      "type": "object",
+      "properties": {
+        "maxConcurrent": {
+          "type": "integer",
+          "default": 5,
+          "description": "Max parallel content generation requests"
+        },
+        "cacheTtlHours": {
+          "type": "integer",
+          "default": 168,
+          "description": "Content cache TTL in hours"
+        },
+        "ollamaModel": {
+          "type": "string",
+          "default": "llama3.1",
+          "description": "Model name for Ollama local LLM"
+        },
+        "ollamaHost": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama host URL"
+        }
+      }
+    },
+    "templates": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Template definitions \u2014 one per keyword cluster",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "file",
+          "cluster"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique template identifier"
+          },
+          "file": {
+            "type": "string",
+            "description": "Path to template file (relative to config file)"
+          },
+          "cluster": {
+            "type": "string",
+            "description": "Cluster ID from keywords.md this template serves"
+          }
+        }
+      }
+    },
+    "dataSource": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "keywords-md",
+            "csv",
+            "json",
+            "api"
+          ],
+          "description": "Data source type. keywords-md is recommended."
+        },
+        "path": {
+          "type": "string",
+          "description": "Path to keywords.md, CSV, or JSON file"
+        },
+        "apiEndpoint": {
+          "type": "string",
+          "format": "uri",
+          "description": "API endpoint URL (for type: api)"
+        },
+        "apiMethod": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "POST"
+          ],
+          "default": "GET"
+        },
+        "apiAuthEnvVar": {
+          "type": "string",
+          "description": "Environment variable name containing bearer token for API auth"
+        },
+        "columnMap": {
+          "type": "object",
+          "description": "Column name mapping for CSV source",
+          "properties": {
+            "keyword": {
+              "type": "string"
+            },
+            "slug": {
+              "type": "string"
+            },
+            "modifier1": {
+              "type": "string"
+            },
+            "modifier2": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "internalLinking": {
+      "type": "object",
+      "properties": {
+        "maxLinksPerPage": {
+          "type": "integer",
+          "default": 8,
+          "description": "Maximum internal links per generated page"
+        },
+        "linkingStrategy": {
+          "type": "string",
+          "enum": [
+            "topical",
+            "sequential",
+            "hierarchical"
+          ],
+          "default": "topical"
+        }
+      }
+    },
+    "sitemapConfig": {
+      "type": "object",
+      "properties": {
+        "segmentByCluster": {
+          "type": "boolean",
+          "default": true
+        },
+        "maxUrlsPerSitemap": {
+          "type": "integer",
+          "default": 10000
+        },
+        "changefreq": {
+          "type": "string",
+          "enum": [
+            "always",
+            "hourly",
+            "daily",
+            "weekly",
+            "monthly",
+            "yearly",
+            "never"
+          ],
+          "default": "monthly"
+        }
+      }
+    },
+    "crawlGuards": {
+      "type": "object",
+      "properties": {
+        "minUniqueWordCount": {
+          "type": "integer",
+          "default": 200,
+          "description": "Pages below this word count are noindexed"
+        },
+        "maxDuplicationRatio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.6
+        },
+        "noindexThreshold": {
+          "type": "integer",
+          "default": 150
+        }
+      }
+    },
+    "enrichmentSource": {
+      "type": "object",
+      "description": "Optional external data file to enrich pages with location/modifier-specific facts. Keyed by modifier value (e.g. city name or role name).",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to a .json or .csv enrichment file"
+        },
+        "keyColumn": {
+          "type": "string",
+          "default": "key",
+          "description": "Column name used as the lookup key in CSV files"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    }
+  }
+}

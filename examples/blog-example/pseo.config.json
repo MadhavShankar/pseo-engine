@@ -1,0 +1,21 @@
+{
+  "site": {
+    "name": "Example Blog",
+    "baseUrl": "https://example-blog.com",
+    "defaultLocale": "en",
+    "frameworkAdapter": "html",
+    "siteType": "blog",
+    "brandVoice": "Practical and clear. Explains concepts without jargon. Uses real examples.",
+    "defaultOgImage": "/og-image.png"
+  },
+  "contentProvider": "template-only",
+  "contentProviderConfig": { "maxConcurrent": 5, "cacheTtlHours": 168 },
+  "templates": [
+    { "id": "topic-guide", "file": "./templates/guide.html", "cluster": "topic-guide" },
+    { "id": "comparison", "file": "./templates/guide.html", "cluster": "comparison" }
+  ],
+  "dataSource": { "type": "keywords-md", "path": "./data/keywords.md" },
+  "internalLinking": { "maxLinksPerPage": 6, "linkingStrategy": "topical" },
+  "sitemapConfig": { "segmentByCluster": true, "maxUrlsPerSitemap": 10000, "changefreq": "weekly" },
+  "crawlGuards": { "minUniqueWordCount": 400, "maxDuplicationRatio": 0.5, "noindexThreshold": 300 }
+}

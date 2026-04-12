@@ -1,0 +1,45 @@
+{
+  "id": "local-business",
+  "displayName": "Local Business",
+  "description": "Service area pages for businesses targeting geo-specific search queries",
+  "defaultSchemaTypes": ["LocalBusiness", "Service"],
+  "crawlStrategy": {
+    "type": "geo-cluster",
+    "hubPriority": 0.9,
+    "spokePriority": 0.7,
+    "deepPriority": 0.5,
+    "recencySignal": false
+  },
+  "internalLinkingPattern": "city-suburb",
+  "sitemapDefaults": {
+    "changefreq": "monthly",
+    "segmentByCluster": true,
+    "maxUrlsPerSitemap": 5000
+  },
+  "contentStrategy": {
+    "minWordCount": 200,
+    "maxWordCount": 500,
+    "faqCount": 4,
+    "intentTypes": ["navigational", "transactional"]
+  },
+  "suggestedSlots": [
+    "meta_title", "meta_description", "h1", "hero_subtext",
+    "body_content", "faq_block", "cta_text", "breadcrumbs",
+    "internal_links", "city", "region", "service_area",
+    "business_hours", "phone", "map_embed_url", "service_list"
+  ],
+  "noindexThreshold": {
+    "minWordCount": 150,
+    "duplicationRatio": 0.65
+  },
+  "keywordModifiers": {
+    "prefix": ["best", "top", "affordable", "local"],
+    "suffix": ["near me", "in :city", "services", "company"],
+    "intentPatterns": [
+      ":service in :city",
+      ":service near me",
+      "best :service :city",
+      ":service :city price"
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "templateId": "base-template",
+  "version": "1.0.0",
+  "siteType": "saas-landing",
+  "frameworkAdapter": "html",
+  "description": "Default slot-annotated base template for saas-landing sites",
+  "requiredSlots": [
+    "meta_title",
+    "meta_description",
+    "h1",
+    "hero_subtext",
+    "body_content",
+    "cta_text"
+  ],
+  "optionalSlots": [
+    "faq_block",
+    "social_proof_stat",
+    "feature_highlight",
+    "breadcrumbs",
+    "internal_links"
+  ],
+  "customSlots": [],
+  "schemaType": "Service",
+  "canonicalStrategy": "self",
+  "contentRules": {
+    "meta_title": { "minChars": 40, "maxChars": 60, "mustContain": "primaryKeyword" },
+    "meta_description": { "minChars": 120, "maxChars": 155, "mustContain": "primaryKeyword" },
+    "h1": { "minChars": 20, "maxChars": 70, "mustContain": "primaryKeyword" },
+    "hero_subtext": { "minChars": 60, "maxChars": 160 },
+    "body_content": { "minWords": 250, "maxWords": 600, "maxKeywordDensity": 0.03 },
+    "faq_block": { "minItems": 3, "maxItems": 6 },
+    "cta_text": { "minChars": 10, "maxChars": 50 }
+  }
+}

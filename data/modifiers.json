@@ -1,0 +1,44 @@
+{
+  "saas-landing": {
+    "intent_prefixes": {
+      "transactional": ["hire", "find", "get", "recruit"],
+      "commercial": ["best", "top", "affordable", "compare"],
+      "informational": ["how to", "what is", "guide to"],
+      "navigational": ["login", "dashboard", "alternatives to"]
+    },
+    "intent_suffixes": {
+      "transactional": ["fast", "now", "today", "in india"],
+      "commercial": ["pricing", "cost", "review", "comparison"],
+      "informational": ["guide", "tutorial", "tips", "explained"],
+      "navigational": ["software", "platform", "tool", "app"]
+    }
+  },
+  "blog": {
+    "intent_prefixes": {
+      "informational": ["how to", "what is", "guide to", "best", "top", "complete"],
+      "commercial": ["best", "top", "review of", "compare"]
+    },
+    "intent_suffixes": {
+      "informational": ["guide", "tutorial", "explained", "tips", "examples"],
+      "commercial": ["review", "comparison", "vs", "alternatives"]
+    }
+  },
+  "ecom": {
+    "intent_prefixes": {
+      "transactional": ["buy", "order", "shop", "get"],
+      "commercial": ["best", "top", "affordable", "cheap", "discount"]
+    },
+    "intent_suffixes": {
+      "transactional": ["online", "for sale", "delivery", "near me"],
+      "commercial": ["price", "deals", "offers", "sale"]
+    }
+  },
+  "locations": {
+    "india": ["bangalore", "mumbai", "delhi", "hyderabad", "pune", "chennai", "kolkata", "noida", "gurgaon", "ahmedabad", "jaipur", "kochi", "indore", "bhopal", "surat"],
+    "us": ["new york", "san francisco", "los angeles", "chicago", "austin", "seattle", "boston", "denver"],
+    "uk": ["london", "manchester", "birmingham", "leeds", "glasgow", "bristol"]
+  },
+  "seniority": ["junior", "mid-level", "senior", "lead", "principal", "staff", "distinguished"],
+  "tech_roles": ["software engineer", "backend developer", "frontend developer", "fullstack developer", "data scientist", "ml engineer", "devops engineer", "qa engineer", "product manager", "ui ux designer"],
+  "tech_skills": ["react", "nodejs", "python", "java", "golang", "rust", "typescript", "kubernetes", "aws", "gcp", "azure", "machine learning", "data engineering", "django", "fastapi"]
+}

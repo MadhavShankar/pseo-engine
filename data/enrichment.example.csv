@@ -1,0 +1,6 @@
+key,avg_salary,talent_pool,top_cos,demand,top_skills,market_notes
+bangalore,18-45LPA,"92,000+","Infosys, Wipro, Flipkart",very high,"Java, Python, React",Largest tech talent pool in India
+mumbai,20-48LPA,"61,000+","TCS, HDFC, Razorpay",high,"Java, Node.js, Python",Strong fintech and ecom hiring market
+delhi,16-40LPA,"54,000+","HCL, Adobe, Paytm",high,"Java, Python, AWS",NCR region covers Noida and Gurgaon
+react,14-40LPA,2400+,,very high,"React, TypeScript, Next.js",
+python,15-42LPA,3100+,,very high,"Python, Django, FastAPI",

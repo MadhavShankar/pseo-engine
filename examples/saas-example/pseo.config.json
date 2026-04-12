@@ -1,0 +1,55 @@
+{
+  "site": {
+    "name": "Your SaaS Product",
+    "baseUrl": "https://yoursaas.com",
+    "defaultLocale": "en",
+    "frameworkAdapter": "nextjs",
+    "siteType": "saas-landing",
+    "brandVoice": "Clear, direct, and helpful. No jargon.",
+    "defaultOgImage": "/og-image.png"
+  },
+  "contentProvider": "template-only",
+  "contentProviderConfig": {
+    "maxConcurrent": 5,
+    "cacheTtlHours": 168
+  },
+  "templates": [
+    {
+      "id": "location-role-template",
+      "file": "./templates/hire-page.html",
+      "cluster": "location-role"
+    },
+    {
+      "id": "skill-seniority-template",
+      "file": "./templates/hire-page.html",
+      "cluster": "skill-seniority"
+    },
+    {
+      "id": "persona-template",
+      "file": "./templates/persona-page.html",
+      "cluster": "persona"
+    }
+  ],
+  "dataSource": {
+    "type": "keywords-md",
+    "path": "./data/keywords.md"
+  },
+  "internalLinking": {
+    "maxLinksPerPage": 8,
+    "linkingStrategy": "topical"
+  },
+  "sitemapConfig": {
+    "segmentByCluster": true,
+    "maxUrlsPerSitemap": 10000,
+    "changefreq": "monthly"
+  },
+  "crawlGuards": {
+    "minUniqueWordCount": 250,
+    "maxDuplicationRatio": 0.6,
+    "noindexThreshold": 150
+  },
+  "enrichmentSource": {
+    "path": "./data/enrichment.json"
+  },
+  "_contentProviderNote": "Use 'claude' or 'openai' for production. 'template-only' is for testing only."
+}

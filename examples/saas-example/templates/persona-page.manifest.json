@@ -1,0 +1,20 @@
+{
+  "templateId": "saas-persona-page",
+  "version": "1.0.0",
+  "siteType": "saas-landing",
+  "frameworkAdapter": "nextjs",
+  "description": "SaaS persona-targeted AI hiring page",
+  "requiredSlots": ["meta_title", "meta_description", "h1", "hero_subtext", "body_content", "cta_text"],
+  "optionalSlots": ["faq_block", "social_proof_stat", "breadcrumbs", "internal_links"],
+  "customSlots": [],
+  "schemaType": "Service",
+  "canonicalStrategy": "self",
+  "contentRules": {
+    "meta_title": { "minChars": 40, "maxChars": 60 },
+    "meta_description": { "minChars": 120, "maxChars": 155 },
+    "h1": { "minChars": 20, "maxChars": 70 },
+    "body_content": { "minWords": 300, "maxWords": 700, "maxKeywordDensity": 0.03 },
+    "faq_block": { "minItems": 3, "maxItems": 5 },
+    "cta_text": { "minChars": 10, "maxChars": 40 }
+  }
+}

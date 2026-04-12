@@ -1,0 +1,44 @@
+{
+  "id": "saas-landing",
+  "displayName": "SaaS Landing Page",
+  "description": "B2B or B2C software product pages targeting feature or persona-specific search intent",
+  "defaultSchemaTypes": ["Service", "FAQPage"],
+  "crawlStrategy": {
+    "type": "cluster-first",
+    "hubPriority": 0.9,
+    "spokePriority": 0.7,
+    "deepPriority": 0.5,
+    "recencySignal": false
+  },
+  "internalLinkingPattern": "hub-spoke",
+  "sitemapDefaults": {
+    "changefreq": "monthly",
+    "segmentByCluster": true,
+    "maxUrlsPerSitemap": 10000
+  },
+  "contentStrategy": {
+    "minWordCount": 250,
+    "maxWordCount": 600,
+    "faqCount": 4,
+    "intentTypes": ["transactional", "commercial"]
+  },
+  "suggestedSlots": [
+    "meta_title", "meta_description", "h1", "hero_subtext",
+    "body_content", "faq_block", "cta_text", "breadcrumbs",
+    "internal_links", "social_proof_stat", "feature_highlight"
+  ],
+  "noindexThreshold": {
+    "minWordCount": 150,
+    "duplicationRatio": 0.6
+  },
+  "keywordModifiers": {
+    "prefix": ["best", "top", "hire", "find", "affordable"],
+    "suffix": ["for startups", "in india", "platform", "tool", "software"],
+    "intentPatterns": [
+      ":keyword pricing",
+      ":keyword vs :competitor",
+      "best :keyword for :modifier",
+      ":keyword for :persona"
+    ]
+  }
+}

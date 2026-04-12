@@ -1,0 +1,45 @@
+{
+  "id": "directory",
+  "displayName": "Directory",
+  "description": "Listing and directory sites with category and profile pages",
+  "defaultSchemaTypes": ["ItemList"],
+  "crawlStrategy": {
+    "type": "alphabetic-geo",
+    "hubPriority": 0.9,
+    "spokePriority": 0.6,
+    "deepPriority": 0.4,
+    "recencySignal": false
+  },
+  "internalLinkingPattern": "index-profile",
+  "sitemapDefaults": {
+    "changefreq": "weekly",
+    "segmentByCluster": true,
+    "maxUrlsPerSitemap": 10000
+  },
+  "contentStrategy": {
+    "minWordCount": 150,
+    "maxWordCount": 400,
+    "faqCount": 3,
+    "intentTypes": ["informational", "navigational"]
+  },
+  "suggestedSlots": [
+    "meta_title", "meta_description", "h1", "hero_subtext",
+    "body_content", "breadcrumbs", "internal_links",
+    "category", "subcategory", "item_count",
+    "filter_tags", "listing_summary", "sort_options"
+  ],
+  "noindexThreshold": {
+    "minWordCount": 100,
+    "duplicationRatio": 0.7
+  },
+  "keywordModifiers": {
+    "prefix": ["best", "top", "list of", "directory of"],
+    "suffix": ["directory", "list", "companies", "services", "near me"],
+    "intentPatterns": [
+      ":category directory",
+      "list of :category in :location",
+      "best :category :location",
+      ":category companies near me"
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "blog",
+  "displayName": "Blog",
+  "description": "Content-driven sites targeting informational and educational search queries",
+  "defaultSchemaTypes": ["Article", "Author"],
+  "crawlStrategy": {
+    "type": "recency-weighted",
+    "hubPriority": 0.8,
+    "spokePriority": 0.6,
+    "deepPriority": 0.4,
+    "recencySignal": true
+  },
+  "internalLinkingPattern": "category-post",
+  "sitemapDefaults": {
+    "changefreq": "weekly",
+    "segmentByCluster": true,
+    "maxUrlsPerSitemap": 10000
+  },
+  "contentStrategy": {
+    "minWordCount": 600,
+    "maxWordCount": 1800,
+    "faqCount": 5,
+    "intentTypes": ["informational", "commercial"]
+  },
+  "suggestedSlots": [
+    "meta_title", "meta_description", "h1", "hero_subtext",
+    "body_content", "faq_block", "cta_text", "breadcrumbs",
+    "internal_links", "author", "publish_date", "reading_time",
+    "tags", "related_posts", "table_of_contents"
+  ],
+  "noindexThreshold": {
+    "minWordCount": 400,
+    "duplicationRatio": 0.5
+  },
+  "keywordModifiers": {
+    "prefix": ["how to", "best", "top", "complete guide to", "what is"],
+    "suffix": ["guide", "tutorial", "tips", "examples", "tools"],
+    "intentPatterns": [
+      "how to :keyword",
+      ":keyword guide",
+      "best :keyword tools",
+      ":keyword vs :alternative",
+      "what is :keyword"
+    ]
+  }
+}

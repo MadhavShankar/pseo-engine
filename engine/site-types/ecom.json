@@ -1,0 +1,46 @@
+{
+  "id": "ecom",
+  "displayName": "E-Commerce",
+  "description": "Product and category pages for online stores targeting transactional search queries",
+  "defaultSchemaTypes": ["Product", "Offer"],
+  "crawlStrategy": {
+    "type": "facet-heavy",
+    "hubPriority": 0.9,
+    "spokePriority": 0.7,
+    "deepPriority": 0.5,
+    "recencySignal": false
+  },
+  "internalLinkingPattern": "category-pdp",
+  "sitemapDefaults": {
+    "changefreq": "weekly",
+    "segmentByCluster": true,
+    "maxUrlsPerSitemap": 10000
+  },
+  "contentStrategy": {
+    "minWordCount": 150,
+    "maxWordCount": 500,
+    "faqCount": 3,
+    "intentTypes": ["transactional", "commercial"]
+  },
+  "suggestedSlots": [
+    "meta_title", "meta_description", "h1", "hero_subtext",
+    "body_content", "faq_block", "cta_text", "breadcrumbs",
+    "internal_links", "product_name", "price", "sku",
+    "availability", "review_count", "badge_text", "category"
+  ],
+  "noindexThreshold": {
+    "minWordCount": 100,
+    "duplicationRatio": 0.7
+  },
+  "keywordModifiers": {
+    "prefix": ["buy", "cheap", "best", "affordable", "discount"],
+    "suffix": ["online", "for sale", "price", "near me", "delivery"],
+    "intentPatterns": [
+      "buy :product online",
+      "affordable :product",
+      ":product price",
+      "best :product under :price",
+      ":category in :location"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "templateId": "ecom-category-page",
+  "version": "1.0.0",
+  "siteType": "ecom",
+  "frameworkAdapter": "nextjs",
+  "description": "Ecom category page for location and price-range facets",
+  "requiredSlots": [
+    "meta_title",
+    "meta_description",
+    "h1",
+    "hero_subtext",
+    "body_content",
+    "cta_text"
+  ],
+  "optionalSlots": [
+    "faq_block",
+    "social_proof_stat",
+    "breadcrumbs",
+    "internal_links"
+  ],
+  "customSlots": [],
+  "schemaType": "Product",
+  "canonicalStrategy": "self",
+  "contentRules": {
+    "meta_title": { "minChars": 30, "maxChars": 60, "mustContain": "primaryKeyword" },
+    "meta_description": { "minChars": 100, "maxChars": 155 },
+    "h1": { "minChars": 15, "maxChars": 70 },
+    "hero_subtext": { "minChars": 60, "maxChars": 180 },
+    "body_content": { "minWords": 150, "maxWords": 500, "maxKeywordDensity": 0.04 },
+    "faq_block": { "minItems": 3, "maxItems": 5 },
+    "cta_text": { "minChars": 8, "maxChars": 40 }
+  }
+}

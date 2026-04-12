@@ -1,0 +1,21 @@
+{
+  "site": {
+    "name": "Example Store",
+    "baseUrl": "https://example-store.com",
+    "defaultLocale": "en",
+    "frameworkAdapter": "nextjs",
+    "siteType": "ecom",
+    "brandVoice": "Helpful, honest, and to the point. Product-focused, no hype.",
+    "defaultOgImage": "/og-image.png"
+  },
+  "contentProvider": "template-only",
+  "contentProviderConfig": { "maxConcurrent": 5, "cacheTtlHours": 168 },
+  "templates": [
+    { "id": "category-location", "file": "./templates/category-page.html", "cluster": "category-location" },
+    { "id": "price-category", "file": "./templates/category-page.html", "cluster": "price-category" }
+  ],
+  "dataSource": { "type": "keywords-md", "path": "./data/keywords.md" },
+  "internalLinking": { "maxLinksPerPage": 8, "linkingStrategy": "topical" },
+  "sitemapConfig": { "segmentByCluster": true, "maxUrlsPerSitemap": 10000, "changefreq": "weekly" },
+  "crawlGuards": { "minUniqueWordCount": 150, "maxDuplicationRatio": 0.65, "noindexThreshold": 100 }
+}

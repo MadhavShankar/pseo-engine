@@ -1,0 +1,38 @@
+{
+  "templateId": "blog-guide",
+  "version": "1.0.0",
+  "siteType": "blog",
+  "frameworkAdapter": "html",
+  "description": "Blog guide and comparison article template",
+  "requiredSlots": [
+    "meta_title",
+    "meta_description",
+    "h1",
+    "hero_subtext",
+    "body_content",
+    "cta_text"
+  ],
+  "optionalSlots": [
+    "faq_block",
+    "author",
+    "publish_date",
+    "reading_time",
+    "tags",
+    "table_of_contents",
+    "related_posts",
+    "breadcrumbs",
+    "internal_links"
+  ],
+  "customSlots": [],
+  "schemaType": "Article",
+  "canonicalStrategy": "self",
+  "contentRules": {
+    "meta_title": { "minChars": 40, "maxChars": 60, "mustContain": "primaryKeyword" },
+    "meta_description": { "minChars": 120, "maxChars": 155 },
+    "h1": { "minChars": 20, "maxChars": 80 },
+    "hero_subtext": { "minChars": 80, "maxChars": 200 },
+    "body_content": { "minWords": 600, "maxWords": 1800, "maxKeywordDensity": 0.025 },
+    "faq_block": { "minItems": 4, "maxItems": 6 },
+    "cta_text": { "minChars": 10, "maxChars": 40 }
+  }
+}

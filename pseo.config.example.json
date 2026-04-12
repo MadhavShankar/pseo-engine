@@ -1,0 +1,50 @@
+{
+  "_comment": "Example pseo-engine config. Copy this file, rename to pseo.config.json, and update all values for your site.",
+  "site": {
+    "name": "Your Site Name",
+    "baseUrl": "https://yoursite.com",
+    "defaultLocale": "en",
+    "frameworkAdapter": "html",
+    "siteType": "saas-landing",
+    "brandVoice": "Direct, clear, and helpful. No buzzwords.",
+    "defaultOgImage": "/og-image.png",
+    "locales": ["en"]
+  },
+  "contentProvider": "template-only",
+  "_contentProvider_options": "template-only | claude | openai | local-llm",
+  "contentProviderConfig": {
+    "maxConcurrent": 5,
+    "cacheTtlHours": 168,
+    "ollamaModel": "llama3.1",
+    "ollamaHost": "http://localhost:11434"
+  },
+  "templates": [
+    {
+      "id": "main-template",
+      "file": "./templates/page.html",
+      "cluster": "your-cluster-id",
+      "_note": "The 'cluster' value must match a [Cluster ID: ...] in your keywords.md"
+    }
+  ],
+  "dataSource": {
+    "type": "keywords-md",
+    "_type_options": "keywords-md | csv | json | api",
+    "path": "./data/keywords.md"
+  },
+  "internalLinking": {
+    "maxLinksPerPage": 8,
+    "linkingStrategy": "topical",
+    "_linkingStrategy_options": "topical | sequential | hierarchical"
+  },
+  "sitemapConfig": {
+    "segmentByCluster": true,
+    "maxUrlsPerSitemap": 10000,
+    "changefreq": "monthly"
+  },
+  "crawlGuards": {
+    "minUniqueWordCount": 250,
+    "maxDuplicationRatio": 0.6,
+    "noindexThreshold": 150
+  },
+  "outputDir": "./output"
+}

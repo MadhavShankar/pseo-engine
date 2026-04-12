@@ -1,0 +1,46 @@
+{
+  "id": "app-download",
+  "displayName": "App Download Page",
+  "description": "Mobile or desktop app landing pages targeting platform-specific and feature-specific queries",
+  "defaultSchemaTypes": ["SoftwareApplication"],
+  "crawlStrategy": {
+    "type": "platform-facet",
+    "hubPriority": 0.9,
+    "spokePriority": 0.7,
+    "deepPriority": 0.5,
+    "recencySignal": false
+  },
+  "internalLinkingPattern": "feature-download",
+  "sitemapDefaults": {
+    "changefreq": "monthly",
+    "segmentByCluster": true,
+    "maxUrlsPerSitemap": 5000
+  },
+  "contentStrategy": {
+    "minWordCount": 200,
+    "maxWordCount": 500,
+    "faqCount": 4,
+    "intentTypes": ["transactional", "navigational"]
+  },
+  "suggestedSlots": [
+    "meta_title", "meta_description", "h1", "hero_subtext",
+    "body_content", "faq_block", "cta_text", "breadcrumbs",
+    "internal_links", "app_name", "platform", "rating",
+    "download_count", "app_store_url", "play_store_url",
+    "screenshots_alt", "feature_list", "version"
+  ],
+  "noindexThreshold": {
+    "minWordCount": 150,
+    "duplicationRatio": 0.6
+  },
+  "keywordModifiers": {
+    "prefix": ["download", "best", "free", "top"],
+    "suffix": ["app", "for android", "for ios", "free download", "apk"],
+    "intentPatterns": [
+      "download :app for :platform",
+      ":app alternative",
+      ":app free",
+      "best :category app for :platform"
+    ]
+  }
+}
