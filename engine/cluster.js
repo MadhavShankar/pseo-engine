@@ -59,9 +59,15 @@ export class ClusterBuilder {
         isHub: true
       };
 
-      clusterNode.pages.unshift(hubPage);
+      const existingHub = [...clusterMap.hubPages.values()].find(h => h.urlSlug === clusterNode.hubSlug);
+      if (existingHub) {
+        console.warn(`[cluster] Hub URL collision: "${cluster.hubUrl}" is already the hub of another cluster. Cluster "${cluster.id}" will share that hub page. Give each cluster a unique Hub URL in keywords.md to fix this.`);
+        clusterMap.hubPages.set(cluster.id, existingHub);
+      } else {
+        clusterNode.pages.unshift(hubPage);
+        clusterMap.hubPages.set(cluster.id, hubPage);
+      }
       clusterMap.clusters.set(cluster.id, clusterNode);
-      clusterMap.hubPages.set(cluster.id, hubPage);
     }
 
     // Build edge graph (internal links)
@@ -84,8 +90,11 @@ export class ClusterBuilder {
       const hubSlug = cluster.hubSlug;
       const spokePages = cluster.pages.filter(p => !p.isHub);
 
-      // Hub → all spokes
-      clusterMap.edges.set(hubSlug, spokePages.map(p => p.urlSlug).slice(0, this.maxLinksPerPage));
+      // Hub → all spokes (hubs are index pages; maxLinksPerPage applies to spokes only,
+      // otherwise spokes beyond the limit are orphaned with zero inbound links).
+      // Merge rather than overwrite in case two clusters share a hub slug.
+      const existingHubLinks = clusterMap.edges.get(hubSlug) || [];
+      clusterMap.edges.set(hubSlug, [...new Set([...existingHubLinks, ...spokePages.map(p => p.urlSlug)])]);
 
       // Spoke → hub + related spokes
       for (const spoke of spokePages) {

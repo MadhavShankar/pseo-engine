@@ -37,7 +37,8 @@ export class InternalLinker {
         continue;
       }
 
-      const items = validTargets.slice(0, this.maxLinksPerPage).map(targetSlug => {
+      const limit = page?.isHub ? Infinity : this.maxLinksPerPage;
+      const items = validTargets.slice(0, limit).map(targetSlug => {
         const targetPage = this.pageIndex.get(targetSlug);
         const anchor = this._buildAnchorText(targetPage);
         const href = `/${targetSlug}`;

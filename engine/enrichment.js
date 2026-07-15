@@ -126,7 +126,7 @@ export class EnrichmentEngine {
    * JSON format: { "bangalore": { "avg_salary": "...", ... }, ... }
    */
   async _loadExternalSource(source) {
-    const filePath = resolve(source.path);
+    const filePath = resolve(this.config._configDir || process.cwd(), source.path);
 
     if (!existsSync(filePath)) {
       console.warn(`[enrichment] Enrichment file not found: ${filePath}. Continuing without external data.`);

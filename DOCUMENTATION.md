@@ -91,14 +91,14 @@ Expected output from `npx pseo-engine build`:
 
 ✓ Loaded 158 keywords across 3 clusters
 ✓ Cluster graph built — 161 pages
-✓ Link graph built — 847 links
+✓ Link graph built — 948 links
 ✓ Generated 161 pages (0 errors, 0 skipped)
 ✓ Validation complete
 
 📊  Validation Report
   Total pages : 161
-  ✅ Pass     : 158
-  ⚠️  Warn     : 3
+  ✅ Pass     : 53
+  ⚠️  Warn     : 108
   ❌ Fail     : 0
   🔴 Error    : 0
 
@@ -110,6 +110,11 @@ Expected output from `npx pseo-engine build`:
   Orphan pages    : 0
   Output dir      : ./output
 ```
+
+A high warn count on a fresh setup is normal — most warnings are the
+duplication guard flagging pages that don't have enrichment data yet.
+Add data to the `Notes` column in `keywords.md` (or an enrichment file)
+and the warnings disappear as pages become genuinely unique.
 
 ---
 
@@ -235,9 +240,9 @@ The parser handles: extra spaces, trailing whitespace, blank rows between table 
 
 | Provider | API Key | Cost per 1000 pages | Quality | Use When |
 |---------|---------|-------------------|---------|----------|
-| `template-only` | None | Free | Good baseline | Zero budget, offline use, testing |
-| `claude` | `ANTHROPIC_API_KEY` | ~$2–5 | Excellent | Production pSEO at scale |
-| `openai` | `OPENAI_API_KEY` | ~$3–7 | Excellent | If you already use OpenAI |
+| `template-only` | None | Free | Good with enrichment data | Default — free, offline, production-ready when paired with enrichment data |
+| `claude` | `ANTHROPIC_API_KEY` | ~$15–25 | Excellent | Optional upgrade for varied prose without enrichment data |
+| `openai` | `OPENAI_API_KEY` | ~$10–20 | Excellent | If you already use OpenAI |
 | `local-llm` | None | Free (compute) | Variable | Privacy requirements, self-hosted |
 
 **Claude provider setup:**

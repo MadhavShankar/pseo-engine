@@ -154,11 +154,12 @@ You need to give us two things:
       type: 'list',
       name: 'contentProvider',
       message: 'Content generation:',
+      default: 'template-only',
       choices: [
-        { name: 'Template only — free, no API key (good for testing)', value: 'template-only' },
-        { name: 'Claude (Anthropic) — best quality, needs ANTHROPIC_API_KEY', value: 'claude' },
-        { name: 'OpenAI (GPT-4o) — needs OPENAI_API_KEY', value: 'openai' },
-        { name: 'Local LLM (Ollama) — free, needs Ollama running', value: 'local-llm' }
+        { name: 'Template only — free, no API key needed (recommended)', value: 'template-only' },
+        { name: 'Claude (Anthropic) — optional paid upgrade, needs ANTHROPIC_API_KEY', value: 'claude' },
+        { name: 'OpenAI (GPT-4o) — optional paid upgrade, needs OPENAI_API_KEY', value: 'openai' },
+        { name: 'Local LLM (Ollama) — free, needs Ollama running locally', value: 'local-llm' }
       ]
     }
   ]);

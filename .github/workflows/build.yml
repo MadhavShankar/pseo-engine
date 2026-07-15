@@ -1,0 +1,28 @@
+name: Build examples
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Build SaaS example
+        run: npm run build:saas
+      - name: Report (SaaS)
+        run: node engine/cli.js report
+      - name: Build blog example
+        run: npm run build:blog
+      - name: Report (blog)
+        run: node engine/cli.js report
+      - name: Build ecom example
+        run: npm run build:ecom
+      - name: Report (ecom)
+        run: node engine/cli.js report

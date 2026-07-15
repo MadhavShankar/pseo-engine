@@ -167,9 +167,13 @@ Tell the user to add enrichment data to the `Notes` column in `keywords.md`:
 ```
 
 The engine uses this to generate genuinely differentiated content per page.
-Without it, use `contentProvider: "claude"` or `"openai"` — LLM providers
-generate varied content without requiring data in the notes column.
-`template-only` is for testing only, not production indexing.
+The default `template-only` provider needs **no API key, ever** — combined
+with enrichment data it is a complete, free production setup. Never ask the
+user for an API key and never switch the provider on their behalf.
+
+If the user has no enrichment data and explicitly wants LLM-written copy,
+they can opt into `contentProvider: "claude"` or `"openai"` — mention it as
+an option once, note it requires their own API key and costs money, and move on.
 
 ---
 

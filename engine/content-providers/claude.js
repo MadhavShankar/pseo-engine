@@ -5,7 +5,7 @@ import { join } from 'path';
 import { EnrichmentEngine } from '../enrichment.js';
 
 const CACHE_DIR = './output/.content-cache';
-const MODEL = 'claude-sonnet-4-20250514';
+const MODEL = 'claude-sonnet-5';
 const MAX_TOKENS = 2000;
 const RATE_LIMIT_RPS = 10;
 
@@ -163,7 +163,10 @@ Content rules:
       this._tokenUsage.pages += 1;
     }
 
-    return { text: data.content?.[0]?.text || '' };
+    // Sonnet 5 runs adaptive thinking by default, so the first content block
+    // may be a thinking block — find the text block instead of assuming index 0.
+    const textBlock = (data.content || []).find(b => b.type === 'text');
+    return { text: textBlock?.text || '' };
   }
 
   async _rateLimit() {

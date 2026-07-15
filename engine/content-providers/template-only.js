@@ -51,8 +51,9 @@ export class TemplateOnlyProvider extends ContentProvider {
 
     const kw = this._titleCase(primaryKeyword);
     const kwLower = primaryKeyword.toLowerCase();
-    const mod1 = this._titleCase(primaryModifier);
-    const mod2 = this._titleCase(secondaryModifier);
+    // Never append a modifier the keyword already contains ("laptops in bangalore" + "in Bangalore")
+    const mod1 = this._modIfAbsent(kwLower, this._titleCase(primaryModifier));
+    const mod2 = this._modIfAbsent(kwLower, this._titleCase(secondaryModifier));
 
     switch (slot) {
       case 'meta_title': {
@@ -61,10 +62,14 @@ export class TemplateOnlyProvider extends ContentProvider {
       }
 
       case 'meta_description': {
-        const templates = [
+        const templates = this._isVerbPhrase(kwLower) ? [
           `${siteName} helps you ${kwLower}${mod1 ? ' in ' + mod1 : ''}. Fast, simple, and built for results. Get started free.`,
           `Looking to ${kwLower}? ${siteName} makes it easier${mod1 ? ' in ' + mod1 : ''}. Try it today.`,
           `${siteName}${mod1 ? ' — ' + mod1 + ' —' : ''} the faster way to ${kwLower}. No setup required.`
+        ] : [
+          `Looking for ${kwLower}${mod1 ? ' in ' + mod1 : ''}? ${siteName} is built exactly for that. Get started free.`,
+          `${siteName} — ${kwLower}${mod1 ? ' in ' + mod1 : ''} built for results, without the usual complexity. Try it today.`,
+          `Everything you expect from ${kwLower}, minus the setup overhead. ${siteName} gets you started in minutes.`
         ];
         const chosen = templates[Math.abs(this._hash(urlSlug)) % templates.length];
         return this._truncate(chosen, rules.maxChars || 155);
@@ -77,10 +82,14 @@ export class TemplateOnlyProvider extends ContentProvider {
       }
 
       case 'hero_subtext': {
-        const intros = [
-          `${siteName} is built for ${kwLower}${mod1 ? ' in ' + mod1 : ''}. Get results without the usual overhead.`,
+        const intros = this._isVerbPhrase(kwLower) ? [
+          `${siteName} is built for teams that need to ${kwLower}${mod1 ? ' in ' + mod1 : ''}. Get results without the usual overhead.`,
           `The faster way to ${kwLower}${mod1 ? ' in ' + mod1 : ''}. Trusted by teams who value their time.`,
-          `${siteName} handles ${kwLower} so your team can focus on what matters.`
+          `${siteName} makes it simple to ${kwLower} — so your team can focus on what matters.`
+        ] : [
+          `Looking for ${kwLower}${mod1 ? ' in ' + mod1 : ''}? ${siteName} is built exactly for that — results without the overhead.`,
+          `${kw} without the usual complexity. Trusted by teams who value their time.`,
+          `${siteName} gives you ${kwLower} that works from day one, so your team can focus on what matters.`
         ];
         return intros[Math.abs(this._hash(urlSlug + 'hero')) % intros.length];
       }
@@ -113,7 +122,9 @@ export class TemplateOnlyProvider extends ContentProvider {
       }
 
       case 'feature_highlight': {
-        return `${siteName} is purpose-built for ${kwLower}${mod1 ? ' in ' + mod1 : ''} — designed to save time and deliver results.`;
+        return this._isVerbPhrase(kwLower)
+          ? `${siteName} is purpose-built to help you ${kwLower}${mod1 ? ' in ' + mod1 : ''} — designed to save time and deliver results.`
+          : `${siteName} is purpose-built for ${kwLower}${mod1 ? ' in ' + mod1 : ''} — designed to save time and deliver results.`;
       }
 
       default:
@@ -127,14 +138,18 @@ export class TemplateOnlyProvider extends ContentProvider {
       secondaryModifier = '', siteName = '', pageData = {}
     } = ctx;
     const kw = primaryKeyword.toLowerCase();
-    const mod1 = primaryModifier;
-    const mod2 = secondaryModifier;
+    const mod1 = this._modIfAbsent(kw, primaryModifier);
+    const mod2 = this._modIfAbsent(kw, secondaryModifier);
 
     // If we have enrichment data, build a data-informed paragraph
     const dataBlock = this._buildDataParagraph(pageData, kw, mod1, siteName);
 
+    const intro = this._isVerbPhrase(kw)
+      ? `<p>If you need to ${kw}${mod1 ? ' in ' + mod1 : ''}, the options vary widely in quality and ease of use. ${siteName} is built specifically for this use case, designed to cut the time between starting and getting results.</p>`
+      : `<p>If you are looking for ${kw}${mod1 ? ' in ' + mod1 : ''}, the options vary widely in quality and ease of use. ${siteName} is built specifically for this use case, designed to cut the time between starting and getting results.</p>`;
+
     const paragraphs = [
-      `<p>If you are looking for ${kw}${mod1 ? ' in ' + mod1 : ''}, the options vary widely in quality and ease of use. ${siteName} is built specifically for this use case, designed to cut the time between starting and getting results.</p>`,
+      intro,
 
       dataBlock,
 
@@ -204,20 +219,25 @@ export class TemplateOnlyProvider extends ContentProvider {
   _generateFaqBlock(ctx, rules) {
     const { primaryKeyword = '', primaryModifier = '', siteName = '' } = ctx;
     const kw = primaryKeyword.toLowerCase();
-    const mod1 = primaryModifier || 'your area';
+    const mod1 = this._modIfAbsent(kw, primaryModifier) || 'your area';
     const count = rules.minItems || 4;
 
+    const isVerb = this._isVerbPhrase(kw);
     const allFaqs = [
       {
-        q: `How does ${siteName} help with ${kw}?`,
-        a: `${siteName} is built specifically for ${kw}. It handles the heavy lifting so you can focus on what matters — getting results faster than you would with a generic solution.`
+        q: isVerb ? `How does ${siteName} help me ${kw}?` : `How does ${siteName} help with ${kw}?`,
+        a: isVerb
+          ? `${siteName} is built specifically to help teams ${kw}. It handles the heavy lifting so you can focus on what matters — getting results faster than you would with a generic solution.`
+          : `${siteName} is built specifically for ${kw}. It handles the heavy lifting so you can focus on what matters — getting results faster than you would with a generic solution.`
       },
       {
-        q: `How long does it take to get started with ${kw}${mod1 !== 'your area' ? ' in ' + mod1 : ''}?`,
+        q: isVerb
+          ? `How long does it take to ${kw}${mod1 !== 'your area' ? ' in ' + mod1 : ''} with ${siteName}?`
+          : `How long does it take to get started with ${kw}${mod1 !== 'your area' ? ' in ' + mod1 : ''}?`,
         a: `Most users are up and running within minutes. The setup is straightforward and the platform walks you through each step.`
       },
       {
-        q: `Do I need technical skills to use ${siteName} for ${kw}?`,
+        q: isVerb ? `Do I need technical skills to ${kw} with ${siteName}?` : `Do I need technical skills to use ${siteName} for ${kw}?`,
         a: `No. ${siteName} is designed to be used without any technical background. If you can use a web browser, you can use ${siteName}.`
       },
       {
@@ -225,7 +245,7 @@ export class TemplateOnlyProvider extends ContentProvider {
         a: `Yes. ${siteName} is built to sit alongside the tools you already use. You do not need to replace your existing workflow to benefit from it.`
       },
       {
-        q: `Is ${siteName} suitable for ${kw} at scale?`,
+        q: isVerb ? `Can I use ${siteName} to ${kw} at scale?` : `Is ${siteName} suitable for ${kw} at scale?`,
         a: `Yes. Whether you are handling a small volume or running large-scale operations, ${siteName} is built to keep up. The performance stays consistent as your usage grows.`
       },
       {
@@ -245,6 +265,26 @@ export class TemplateOnlyProvider extends ContentProvider {
   _titleCase(str) {
     if (!str) return '';
     return str.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  }
+
+  /**
+   * True when the keyword reads as an action ("hire react developers",
+   * "buy laptops online") rather than a thing ("ai hiring platform").
+   * Sentence templates differ: verbs need "helps you X", nouns need "looking for X".
+   */
+  _isVerbPhrase(kwLower) {
+    return /^(hire|buy|find|get|book|rent|order|download|build|create|start|learn|choose|compare|outsource|recruit|sell|write|make|develop|design|migrate|automate|schedule|track|manage|grow|launch|host|plan)\b/.test(kwLower);
+  }
+
+  /**
+   * Returns the modifier only if the keyword does not already contain it.
+   * Prevents doubled phrasing like "Laptops In Bangalore in Bangalore".
+   */
+  _modIfAbsent(keywordLower, modifier) {
+    if (!modifier) return '';
+    const modNormalised = modifier.toLowerCase().replace(/-/g, ' ');
+    const kwNormalised = keywordLower.replace(/-/g, ' ');
+    return kwNormalised.includes(modNormalised) ? '' : modifier;
   }
 
   _truncate(str, max) {
@@ -278,7 +318,7 @@ TemplateOnlyProvider.prototype._generateEcomSlot = function(slot, ctx, rules) {
   const { primaryKeyword = '', primaryModifier = '', secondaryModifier = '', siteName = '', urlSlug = '' } = ctx;
   const kw = this._titleCase(primaryKeyword);
   const kwLower = primaryKeyword.toLowerCase();
-  const mod1 = this._titleCase(primaryModifier);
+  const mod1 = this._modIfAbsent(kwLower, this._titleCase(primaryModifier));
 
   switch (slot) {
     case 'meta_title':
@@ -291,7 +331,7 @@ TemplateOnlyProvider.prototype._generateEcomSlot = function(slot, ctx, rules) {
       return `Browse our selection of ${kwLower}${mod1 ? ' available for delivery in ' + mod1 : ''}. Competitive prices, genuine products, fast delivery.`;
     case 'body_content':
       return `<p>Looking for ${kwLower}${mod1 ? ' in ' + mod1 : ''}? ${siteName} offers a curated selection of genuine products with competitive pricing and fast delivery across India.</p>
-<h2>Why shop ${kwLower} on ${siteName}?</h2>
+<h2>Why shop with ${siteName}?</h2>
 <ul>
   <li>Genuine products from authorised sellers</li>
   <li>Free delivery on orders above ₹499</li>
@@ -300,14 +340,14 @@ TemplateOnlyProvider.prototype._generateEcomSlot = function(slot, ctx, rules) {
   <li>Secure payment — UPI, credit card, net banking</li>
 </ul>
 <h2>How to choose the right ${secondaryModifier || 'product'}</h2>
-<p>Before purchasing ${kwLower}, consider your use case, budget, and the warranty offered. Check verified buyer reviews to understand real-world performance before deciding.</p>`;
+<p>Before purchasing, consider your use case, budget, and the warranty offered. Check verified buyer reviews to understand real-world performance before deciding.</p>`;
     case 'faq_block':
       return `<dl class="pseo-faq">
   <dt>Is free delivery available for ${kwLower}${mod1 ? ' in ' + mod1 : ''}?</dt>
   <dd>Yes. ${siteName} offers free delivery on orders above ₹499 to most pin codes${mod1 ? ' in ' + mod1 : ''} and across India.</dd>
-  <dt>Can I return ${kwLower} if I'm not satisfied?</dt>
+  <dt>Can I return my order if I'm not satisfied?</dt>
   <dd>Yes. We have a 7-day return policy for most products. The item must be in its original packaging and unused condition.</dd>
-  <dt>Are the ${kwLower} on ${siteName} genuine?</dt>
+  <dt>Are the products on ${siteName} genuine?</dt>
   <dd>All products on ${siteName} are sourced from authorised sellers and come with manufacturer warranties where applicable.</dd>
   <dt>What payment methods are accepted?</dt>
   <dd>We accept UPI, credit and debit cards, net banking, and cash on delivery (COD) for eligible orders.</dd>
@@ -325,17 +365,20 @@ TemplateOnlyProvider.prototype._generateBlogSlot = function(slot, ctx, rules) {
   const isComparison = urlSlug.includes('-vs-');
   const mod1 = this._titleCase(primaryModifier);
   const mod2 = this._titleCase(secondaryModifier);
+  const isHowTo = kwLower.startsWith('how to ');
+  const year = new Date().getFullYear();
 
   switch (slot) {
     case 'meta_title':
-      return this._truncate(isComparison ? `${mod1} vs ${mod2}: Which Should You Choose? (2025)` : `${kw}: Complete Guide for 2025`, rules.maxChars || 60);
+      return this._truncate(isComparison ? `${mod1} vs ${mod2}: Which Should You Choose? (${year})` : `${kw}: Complete Guide for ${year}`, rules.maxChars || 60);
     case 'meta_description':
       return this._truncate(isComparison
-        ? `${mod1} vs ${mod2} — a detailed comparison covering features, pricing, and use cases. Find out which is right for your needs in 2025.`
+        ? `${mod1} vs ${mod2} — a detailed comparison covering features, pricing, and use cases. Find out which is right for your needs in ${year}.`
         : `A complete guide to ${kwLower}. Learn step-by-step how to get started, best practices, and common mistakes to avoid.`,
         rules.maxChars || 155);
     case 'h1':
-      return isComparison ? `${mod1} vs ${mod2}: The Complete Comparison (2025)` : `How to ${kw}: A Step-by-Step Guide`;
+      if (isComparison) return `${mod1} vs ${mod2}: The Complete Comparison (${year})`;
+      return isHowTo ? `${kw}: A Step-by-Step Guide` : `How to ${kw}: A Step-by-Step Guide`;
     case 'hero_subtext':
       return isComparison
         ? `We break down ${mod1} and ${mod2} across features, pricing, and real use cases so you can make the right choice for your situation.`
@@ -357,7 +400,7 @@ TemplateOnlyProvider.prototype._generateBlogSlot = function(slot, ctx, rules) {
 <h2>Which should you choose?</h2>
 <p>Choose ${mod1} if you want a quick setup and a gentle learning curve. Choose ${mod2} if you need advanced customisation and your team is willing to invest time in onboarding.</p>`;
       }
-      return `<p>${kw} is one of those skills that pays off across many areas of business. This guide walks through the entire process from zero, with concrete steps at each stage.</p>
+      return `<p>${isHowTo ? 'Knowing ' + kwLower : kw} is one of those skills that pays off across many areas of business. This guide walks through the entire process from zero, with concrete steps at each stage.</p>
 <h2>Before you start: what you need</h2>
 <p>You do not need specialist tools or a large budget to ${kwLower.replace('how to ', '')}. The basics are free, and most of what matters comes from consistent execution rather than expensive software.</p>
 <h2>Step 1: Research and plan</h2>

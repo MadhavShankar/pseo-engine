@@ -51,5 +51,5 @@
   "enrichmentSource": {
     "path": "./data/enrichment.json"
   },
-  "_contentProviderNote": "Use 'claude' or 'openai' for production. 'template-only' is for testing only."
+  "_contentProviderNote": "template-only is free and needs no API key — pair it with enrichment data (notes column or enrichment file) for unique pages. 'claude' or 'openai' are optional paid upgrades."
 }

@@ -123,7 +123,7 @@
 ---
 
 ## [Cluster ID: skill-seniority] Hire by Skill and Seniority
-**Hub URL:** /hire-developers
+**Hub URL:** /hire-developers-by-skill
 **Hub Page Title:** Hire Expert Developers by Skill — Your SaaS Product
 **Schema:** Service
 **Intent:** transactional

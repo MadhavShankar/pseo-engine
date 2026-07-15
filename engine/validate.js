@@ -106,7 +106,8 @@ export class PageValidator {
 
   _checkKeywordDensity(text, keyword, totalWords) {
     if (totalWords === 0) return { name: 'keyword_density', status: 'warn', detail: 'No content' };
-    const kwCount = (text.toLowerCase().match(new RegExp(keyword.toLowerCase(), 'g')) || []).length;
+    const escaped = keyword.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const kwCount = (text.toLowerCase().match(new RegExp(escaped, 'g')) || []).length;
     const density = kwCount / totalWords;
     if (density > 0.03) {
       return { name: 'keyword_density', status: 'warn', detail: `${(density * 100).toFixed(1)}% density — above 3% threshold (over-optimisation risk)` };

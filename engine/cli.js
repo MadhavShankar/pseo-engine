@@ -308,9 +308,10 @@ async function cmdBuild(argv) {
   // 6. Sitemap
   const sitemapSpinner = ora('Generating sitemaps...').start();
   const { SitemapGenerator } = await import('./sitemap.js');
-  const noindexSlugs = new Set(
-    report.pages.filter(p => p.status === 'fail').map(p => p.slug)
-  );
+  const noindexSlugs = new Set([
+    ...report.pages.filter(p => p.status === 'fail').map(p => p.slug),
+    ...factory.noindexedSlugs
+  ]);
   const sitemapGen = new SitemapGenerator(config);
   const sitemapFiles = sitemapGen.generate(clusterMap, noindexSlugs);
   sitemapSpinner.succeed(`Generated ${sitemapFiles.length} sitemaps + sitemap-index.xml + robots.txt`);
